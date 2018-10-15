@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ -f tmp/pids/server.pid ]; then
+  rm tmp/pids/server.pid
+fi
+
+bundle install --path=vendor
+
+bundle exec rails s
