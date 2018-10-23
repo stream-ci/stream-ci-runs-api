@@ -35,8 +35,8 @@ module StreamCiRunner
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    scir_api_key = ENV['SCIR_API_KEY']
-    raise(StandardError, 'No Stream CI api key provided') unless scir_api_key.present?
-    config.x.scir.api_key = ENV['SCIR_API_KEY']
+    sci_runs_api_key = ENV['SCI_RUNS_API_KEY']
+    raise(StandardError, 'No Stream CI runs api key provided') unless sci_runs_api_key.present?
+    config.x.scir.api_key = ENV['SCI_RUNS_API_KEY']
   end
 end

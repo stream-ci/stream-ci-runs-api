@@ -3,8 +3,8 @@
 docker run \
         --rm \
         -it \
-        --name stream-ci-runs-api-redis-dev \
+        --name stream-ci-runs-redis-dev \
         -p 6379:6379 \
-        jconant/stream-ci-runs-api-redis-dev:latest
+        stream-ci/stream-ci-runs-redis-dev:latest
 
 # Run this script to start the redis server.

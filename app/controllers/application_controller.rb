@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  before_action :validate_api_key
+  before_action :validate_api_key, except: [:ping]
 
   def ping
     render json: "pong", status: :ok
