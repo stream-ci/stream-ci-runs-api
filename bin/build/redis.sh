@@ -3,4 +3,4 @@
 docker build \
         $(pwd) \
         -f ./docker/redis/dev/Dockerfile \
-        -t jconant/stream-ci-runner-redis-dev:latest
+        -t jconant/stream-ci-runs-api-redis-dev:latest

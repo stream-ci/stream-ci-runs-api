@@ -1,3 +1,6 @@
+# TODO check a multi vs single tennent ENV var and load AR if multi
+
+
 require_relative 'boot'
 
 require "rails"
@@ -5,7 +8,7 @@ require "rails"
 # require "active_model/railtie"
 require "active_job/railtie"
 # require "active_record/railtie"
-require "active_storage/engine"
+# require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
@@ -31,5 +34,9 @@ module StreamCiRunner
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    scir_api_key = ENV['SCIR_API_KEY']
+    raise(StandardError, 'No Stream CI api key provided') unless scir_api_key.present?
+    config.x.scir.api_key = ENV['SCIR_API_KEY']
   end
 end
