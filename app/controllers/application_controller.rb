@@ -1,8 +1,12 @@
 class ApplicationController < ActionController::API
-  before_action :validate_api_key, except: [:ping]
+  before_action :validate_api_key, except: [:ping, :route_not_found]
 
   def ping
     render json: "PONG", status: :ok
+  end
+
+  def route_not_found
+    render json: 'Not Found', status: 404
   end
 
   private

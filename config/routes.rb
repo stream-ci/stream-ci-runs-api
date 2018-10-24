@@ -14,4 +14,9 @@ Rails.application.routes.draw do
   end
 
   delete 'runs/(:id)', to: 'runs#destroy'
+
+  #
+  # This route must always be last.
+  #
+  match '*unmatched', to: 'application#route_not_found', via: :all
 end
