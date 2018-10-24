@@ -1,2 +1,2 @@
-alias be="bin/run bundle exec"
-alias r="time be rspec"
+alias be="bin/run/dev bundle exec"
+alias r="time bin/run/test bundle exec rspec"

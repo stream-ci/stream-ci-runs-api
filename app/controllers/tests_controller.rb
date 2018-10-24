@@ -1,24 +1,22 @@
 class TestsController < ApplicationController
   # lists all test file paths for a given run
   def index
-    if run_id.present?
-      render json: { runs: redis.lrange(run_id, 0, -1) }, status: 200
+    # I think it's safe to assume there is a run_id, otherwise it'd be
+    # a routing error that rails picks up sooner anyway.
+    if redis.keys.include?(run_id)
+      render json: { tests: redis.lrange(run_id, 0, -1) }, status: 200
     else
-      render json: 'Bad Request', status: 400
+      render json: 'Not Found', status: 404
     end
   end
 
   # pops next n-number tests off of queue and sends in response
   def pop
-    if run_id.present?
-      if fetched_tests.any?
-        render json: { tests: fetched_tests }, status: 200
-      else
-        redis.del(run_id)
-        render json: 'Not Found', status: 404
-      end
+    if fetched_tests.any?
+      render json: { tests: fetched_tests }, status: 200
     else
-      render json: 'Bad Request', status: 400
+      redis.del(run_id)
+      render json: 'Not Found', status: 404
     end
   end
 
