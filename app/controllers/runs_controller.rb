@@ -1,11 +1,13 @@
 class RunsController < ApplicationController
   # list all runs
+  # GET /runs
   def index
     render json: { runs: redis.keys }, status: 200
   end
 
   # create a new run, with 1 or more test file paths
   # will over-write exiting run if IDs are identical
+  # POST /runs
   def create
     if create_run
       render json: 'Created', status: 204
@@ -15,6 +17,7 @@ class RunsController < ApplicationController
   end
 
   # destroy a specific run
+  # DELETE /runs/:id
   def destroy
     if destroy_run
       render json: 'Destroyed', status: 204
@@ -24,6 +27,7 @@ class RunsController < ApplicationController
   end
 
   # destroy all runs
+  # DELETE /runs/_clear
   def clear
     #
     # CAUTION:  Only use this end-point if stream-ci-runs-api
@@ -45,18 +49,20 @@ class RunsController < ApplicationController
   end
 
   def destroy_run
-    run_id.present? && redis.del(run_id)
+    params[:id].present? && redis.del(params[:id]) > 0
   end
 
   def run_id
-    run_params[:run_id]
+    run_params[:id]
   end
 
   def test_file_paths
-    run_params[:test_file_paths]
+    @test_file_paths ||= run_params
+      .fetch(:test_file_paths, [])
+      .select { |tfp| tfp.present? }
   end
 
   def run_params
-    params.require(:run).permit(:run_id, test_file_paths: [])
+    params.require(:run).permit(:id, test_file_paths: [])
   end
 end

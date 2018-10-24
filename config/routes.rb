@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   get '/ping', to: 'application#ping'
 
-  resources :runs, except: [:new, :show, :update] do
+  resources :runs, except: [:new, :show, :update, :destroy] do
     collection do
-      delete :clear # clear all runs
+      delete :_clear, to: 'runs#clear' # clear all runs
     end
 
     resources :tests, only: [:index] do
@@ -12,4 +12,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  delete 'runs/(:id)', to: 'runs#destroy'
 end

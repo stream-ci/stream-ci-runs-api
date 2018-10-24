@@ -30,7 +30,7 @@ gem 'puma', '~> 3.11'
 
 group :development, :test do
   gem 'pry-rails', '~> 0.3.6'
+  gem 'rspec-rails', '~> 3.8', '>= 3.8.1'
 end
 
 gem 'redis', '~> 4.0', '>= 4.0.2'
-gem 'rspec-rails', '~> 3.8', '>= 3.8.1'
